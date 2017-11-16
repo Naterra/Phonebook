@@ -1,0 +1,54 @@
+.main_nav{
+margin-bottom:35px;
+}
+
+.btn-group{
+    position: relative;
+    display: -ms-inline-flexbox;
+
+    vertical-align: middle;
+}
+.btn-group .btn a{
+    color:#fff;
+}
+.btn-group .btn{
+    font-size: 1rem;
+    padding: 0 0.7rem;
+
+}
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-group > .btn:first-child {
+    margin-left: 0;
+}
+.btn-group-vertical > .btn, .btn-group > .btn {
+    position: relative;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+}
+
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+}
+.btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group, .btn-group-vertical .btn + .btn, .btn-group-vertical .btn + .btn-group, .btn-group-vertical .btn-group + .btn, .btn-group-vertical .btn-group + .btn-group {
+    margin-left: -1px;
+}
+
+.tabs .tab a{
+    padding: 0 10px;
+}
+.tabs{
+    overflow: visible;
+}
+
+.alphabet .btn{
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+.btn-small {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 0.5rem;
+}
