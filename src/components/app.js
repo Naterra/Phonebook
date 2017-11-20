@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from './header';
-import RecordsList from './RecordsList';
+import RecordsList from '../containers/RecordsList';
 import EditContactPage from '../containers/EditContactPage';
 
 export default class App extends Component {

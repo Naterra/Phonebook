@@ -4,16 +4,25 @@ axios.defaults.baseURL = 'http://phonebook.app/new_phonebook/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
-import { FETCH_CONTACTS, FETCH_CONTACT,  EDIT_CONTACT} from './types';
+import { SET_FILTER_TERM, FETCH_CONTACTS, FETCH_CONTACT,  SAVE_CONTACT} from './types';
 
-const records_limit = 30;
 
-export function editContact(values, callback){
-    // const request = axios.post(`/api/index.php?action=edit_contact`, values )
-    //     .then(() => callback());
-const request = '';
+
+export function set_filter_term(term){
     return{
-        type: EDIT_CONTACT,
+        type: SET_FILTER_TERM,
+        payload: term
+    };
+}
+
+
+export function saveContact(values, callback){
+    const request = axios.post(`/api/index.php?action=save_contact`, values )
+        .then(() => callback());
+
+
+    return{
+        type: SAVE_CONTACT,
         payload: request
     };
 }
@@ -27,17 +36,21 @@ export function fetchContact(id){
     };
 }
 
-export function fetchContacts(){
+export function fetchContacts(filter){
+    console.log( filter, 'ACTION fetchContacts');
+    //const records_limit = 30;
+
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-    const request = axios.get(`/api/index.php?action=contacts&limit=${records_limit}`, config);
+    const request = axios.get(`/api/index.php?action=contacts&limit=${filter.limit}&filterBy=${filter.term}`, config );
     // .then(function(response){
     //     console.log('response',response);
     // }).catch(function (error) {
     //     console.log('error', error);
     // });
 
-    console.log('action request',request);
+
+    //console.log('action request',request);
 
     return{
         type: FETCH_CONTACTS,

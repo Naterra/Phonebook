@@ -18,3 +18,19 @@ ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <App />
     </Provider>, document.getElementById('root') );
+
+
+
+// Once the DOM has loaded, render our app.
+// NOTE FOR PRODUCTION: DevTools should not be used in production apps!
+// window.onload = () => {
+//     const root = (
+//         <Provider store={store}>
+//             <div>
+//                 <TodoApp/>
+//                 <DevTools/>
+//             </div>
+//         </Provider>
+//     );
+//     render(root, document.getElementById('app'));
+// }

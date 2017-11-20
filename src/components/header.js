@@ -13,10 +13,9 @@ class Header extends Component{
                         <i className="material-icons">menu</i></a>
 
                     <ul className="right hide-on-med-and-down">
-                        <li><a href="sass.html">Search Contacts</a></li>
-                        <li><a href="badges.html">Show All Contacts</a></li>
                         <li><a href="collapsible.html">Add New Contact</a></li>
                     </ul>
+
                     <ul className="side-nav" id="mobile-demo">
                         <li><a href="sass.html">Search Contacts</a></li>
                         <li><a href="badges.html">Show All Contacts</a></li>

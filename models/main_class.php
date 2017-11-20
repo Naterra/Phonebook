@@ -15,32 +15,56 @@ function __construct(){
 
 }
 
+//facade
+function save_record($param){
+    $this->add_record($param);
+}
+
 function add_record($param){
 //    echo '<pre>';
 //    print_r($param);
 //    echo '</pre>';
+
     $firstName   =  $param['FirstName'] ? $param['FirstName']  : 'Null';
     $lastName    =  $param['LastName'] ? $param['LastName']  : 'Null';
     $companyName =  $param['CompanyName'] ? $param['CompanyName']  : 'Null';
     $category    =  $param['Category'] ? $param['Category']  : 'Null';
 
     $res= $this->conn->query("INSERT INTO `data` SET 
-									`FirstName` = '".htmlentities($firstName, ENT_QUOTES)."',
-									`LastName` = '".htmlentities($lastName, ENT_QUOTES)."',
-									`CompanyName` = '".htmlentities($companyName, ENT_QUOTES)."',
-									`Title` = '".htmlentities($param['Title'], ENT_QUOTES)."',
-									`OfficeNo` = '".htmlentities($param['OfficeNo'], ENT_QUOTES)."', 
-									`FaxNo` = '".htmlentities($param['FaxNo'], ENT_QUOTES)."',
-									`MobileNo` = '".htmlentities($param['MobileNo'], ENT_QUOTES)."',
-									`HomeNo` = '".htmlentities($param['HomeNo'], ENT_QUOTES)."',
-									`OtherNo` = '".htmlentities($param['OtherNo'], ENT_QUOTES)."',
-									`Email` = '".htmlentities($param['Email'], ENT_QUOTES)."', 
-									`Street` = '".htmlentities($param['Street'], ENT_QUOTES)."',
-									`City` = '".htmlentities($param['City'], ENT_QUOTES)."',
-									`State` = '".htmlentities($param['State'], ENT_QUOTES)."',
-									`Zip` = '".htmlentities($param['Zip'], ENT_QUOTES)."',
-									`Notes` = '".htmlentities($param['Notes'], ENT_QUOTES)."',
-									`Category`  = '".htmlentities($category, ENT_QUOTES)."' 
+                                        `Id` = '".$param['Id']."',
+                                        `FirstName` = '".htmlentities($firstName, ENT_QUOTES)."',
+                                        `LastName` = '".htmlentities($lastName, ENT_QUOTES)."',
+                                        `CompanyName` = '".htmlentities($companyName, ENT_QUOTES)."',
+                                        `Title` = '".htmlentities($param['Title'], ENT_QUOTES)."',
+                                        `OfficeNo` = '".htmlentities($param['OfficeNo'], ENT_QUOTES)."', 
+                                        `FaxNo` = '".htmlentities($param['FaxNo'], ENT_QUOTES)."',
+                                        `MobileNo` = '".htmlentities($param['MobileNo'], ENT_QUOTES)."',
+                                        `HomeNo` = '".htmlentities($param['HomeNo'], ENT_QUOTES)."',
+                                        `OtherNo` = '".htmlentities($param['OtherNo'], ENT_QUOTES)."',
+                                        `Email` = '".htmlentities($param['Email'], ENT_QUOTES)."', 
+                                        `Street` = '".htmlentities($param['Street'], ENT_QUOTES)."',
+                                        `City` = '".htmlentities($param['City'], ENT_QUOTES)."',
+                                        `State` = '".htmlentities($param['State'], ENT_QUOTES)."',
+                                        `Zip` = '".htmlentities($param['Zip'], ENT_QUOTES)."',
+                                        `Notes` = '".htmlentities($param['Notes'], ENT_QUOTES)."',
+                                        `Category`  = '".htmlentities($category, ENT_QUOTES)."' 
+									ON DUPLICATE KEY UPDATE
+                                        `FirstName` = '".htmlentities($firstName, ENT_QUOTES)."',
+                                        `LastName` = '".htmlentities($lastName, ENT_QUOTES)."',
+                                        `CompanyName` = '".htmlentities($companyName, ENT_QUOTES)."',
+                                        `Title` = '".htmlentities($param['Title'], ENT_QUOTES)."',
+                                        `OfficeNo` = '".htmlentities($param['OfficeNo'], ENT_QUOTES)."', 
+                                        `FaxNo` = '".htmlentities($param['FaxNo'], ENT_QUOTES)."',
+                                        `MobileNo` = '".htmlentities($param['MobileNo'], ENT_QUOTES)."',
+                                        `HomeNo` = '".htmlentities($param['HomeNo'], ENT_QUOTES)."',
+                                        `OtherNo` = '".htmlentities($param['OtherNo'], ENT_QUOTES)."',
+                                        `Email` = '".htmlentities($param['Email'], ENT_QUOTES)."', 
+                                        `Street` = '".htmlentities($param['Street'], ENT_QUOTES)."',
+                                        `City` = '".htmlentities($param['City'], ENT_QUOTES)."',
+                                        `State` = '".htmlentities($param['State'], ENT_QUOTES)."',
+                                        `Zip` = '".htmlentities($param['Zip'], ENT_QUOTES)."',
+                                        `Notes` = '".htmlentities($param['Notes'], ENT_QUOTES)."',
+                                        `Category`  = '".htmlentities($category, ENT_QUOTES)."'
 									");
     return $res;
 
@@ -86,13 +110,21 @@ function get_records_by($param){
 }
 
 function get_all_records($param){
+    $where = array();
+
     if($param['limit']){
         $limit = 'LIMIT '.$param['limit'];
     }else{
         $limit ='';
     }
 
-    $query= $this->conn->query("SELECT * FROM `data` ORDER BY `FirstName` ASC ". $limit);
+    if($param['where_like'] && is_array($param['where_like']) ){
+        //print_r($param['where_like']);
+        $where[] = " `".$param['where_like'][0]."` LIKE '".$param['where_like'][1]."%' ";
+    }
+
+   $sql = "SELECT * FROM `data` ".(!empty($where) ? "WHERE ".implode(' AND ', $where) : '' )." ORDER BY `FirstName` ASC ". $limit;
+    $query= $this->conn->query($sql);
 
     $data =[];
     while($res = mysqli_fetch_assoc($query)){

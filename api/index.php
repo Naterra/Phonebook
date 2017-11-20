@@ -5,7 +5,7 @@ header('Content-type: application/json');
 header('Access-Control-Allow-Headers: Content-Type');
 header("Access-Control-Allow-Origin: *");
 
-//$_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true);
 //echo '<pre>'; print_r($_POST); echo '</pre>';
 
 
@@ -19,9 +19,23 @@ $mainclass = new Mainclass();
 parse_str($_SERVER['QUERY_STRING'], $url);
 //echo '<pre>'; print_r($url); echo '</pre>';
 
+
+
+//Get All Contacts (param)
 if( $url['action'] =='contacts' && $_SERVER['REQUEST_METHOD']=="GET"){
-        $records = $mainclass->get_all_records(['limit'=>$url['limit']]);
+        $records = $mainclass->get_all_records([
+            'limit'=>$url['limit'],
+            'where_like'=>['firstName', $url['filterBy']]
+        ]);
          echo json_encode($records);
+}
+
+//INSERT OR UPDATE
+if( $url['action'] =='save_contact' && $_SERVER['REQUEST_METHOD']=="POST"){
+    //print_r($_POST);
+
+    $records = $mainclass->add_record($_POST);
+    echo json_encode($records);
 }
 
 if( $url['action'] =='get_contact' && $_SERVER['REQUEST_METHOD']=="GET"){
