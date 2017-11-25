@@ -68,6 +68,7 @@ class EditContactForm extends Component{
 
 
                <Link to="/" className="red btn-flat white-text">Cansel</Link>
+
                <button type="submit"
                        className="teal btn-flat right white-text">
                    Save

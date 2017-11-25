@@ -22,12 +22,17 @@ parse_str($_SERVER['QUERY_STRING'], $url);
 
 
 //Get All Contacts (param)
-if( $url['action'] =='contacts' && $_SERVER['REQUEST_METHOD']=="GET"){
-        $records = $mainclass->get_all_records([
-            'limit'=>$url['limit'],
-            'where_like'=>['firstName', $url['filterBy']]
-        ]);
-         echo json_encode($records);
+if( $url['action'] =='get_contacts' && $_SERVER['REQUEST_METHOD']=="GET"){
+    $page =  ($url['page']-1) * $url['limit'];
+    $limit =[$page, $url['limit']];
+
+
+    $records = $mainclass->get_all_records([
+            'limit'=>$limit,
+            'where_like'=>['firstName', $url['filterBy']],
+            'page'=>$url['page']
+    ]);
+    echo json_encode($records);
 }
 
 //INSERT OR UPDATE

@@ -47,6 +47,7 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         host: 'localhost',
+        hot:true,
         port: 3000
 
     },
@@ -63,7 +64,9 @@ module.exports = {
         // generate index.html automatically for this project
         new HtmlWebpackPlugin({
             template:'src/index.html'
-        })
+        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
 
         // new webpack.DefinePlugin({
         //     'process.env': {

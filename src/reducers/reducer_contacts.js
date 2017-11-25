@@ -1,7 +1,10 @@
 const FETCH_CONTACTS = 'fetch_contacts';
 const FETCH_CONTACT  = 'fetch_contact';
 
-const INITIAL_STATE = {all:[], posts:null };
+const INITIAL_STATE = {
+    all:[],
+    posts:null
+};
 
 export default function (state=[], action){
     switch(action.type){

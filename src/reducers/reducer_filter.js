@@ -1,12 +1,12 @@
-import { SET_FILTER_TERM } from '../actions/types';
+import { SET_FILTER_TERM, SET_FILTER_PAGE } from '../actions/types';
 
 
 //paging state ?
-const paging = {
-    page:0,
-    limit: 20,
-    total:12000
-}
+// const paging = {
+//     page:1,
+//     limit: 20,
+//     total:12000
+// }
 
 
 
@@ -14,7 +14,7 @@ const initialState ={
     type:'alpha',
     term: 'A',
     limit: 5,
-    page: 0
+    page: 1
 };
 
 export default function (state=initialState, action){
@@ -29,6 +29,10 @@ export default function (state=initialState, action){
             };
             //case SET_FILTER_TYPE:
             //case SET_FILTER_LIMIT:
+        case SET_FILTER_PAGE:
+            return {...state,
+                page: action.payload
+            };
         default:
             return state;
     }

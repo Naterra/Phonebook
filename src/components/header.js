@@ -17,8 +17,6 @@ class Header extends Component{
                     </ul>
 
                     <ul className="side-nav" id="mobile-demo">
-                        <li><a href="sass.html">Search Contacts</a></li>
-                        <li><a href="badges.html">Show All Contacts</a></li>
                         <li><a href="collapsible.html">Add New Contact</a></li>
                     </ul>
                 </div>

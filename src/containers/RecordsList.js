@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import {bindActionCreators} from 'redux';
-import { fetchContacts, set_filter_term } from '../actions';
+import { fetchContacts, set_filter_term, set_filter_page} from '../actions';
 import { Link } from 'react-router-dom';
 
 import Alpha from '../components/alphabetMenu';
@@ -12,7 +12,10 @@ import SearchBox from './SearchBox';
 class RecordsList extends Component{
     constructor(props){
         super(props);
-        this.set_filter_term = this.set_filter_term.bind(this);
+
+        this.onClickAlpha  = this.onClickAlpha.bind(this);
+        this.pagingOnClick = this.pagingOnClick.bind(this);
+        // console.log(this, "THIS constructor");
     }
 
 
@@ -38,30 +41,44 @@ class RecordsList extends Component{
 
     //before render() couse infiniti loop
     componentWillUpdate(nextProps, nextState) {
-        console.log('componentWillUpdate'); //, no! setState, no! dispatch actions
+        // console.log('componentWillUpdate'); //, no! setState, no! dispatch actions
     }
 
     //after render()
     componentDidUpdate(prevProps, prevState) {
-        console.log(  'componentDidUpdate');
+        // console.log(  'componentDidUpdate');
     }
 
 
-    set_filter_term(letter, e){
+    onClickAlpha(letter, e){
         console.log('letter:', letter);
         //Update filter in store
         this.props.set_filter_term({term:letter,  type:'alpha'});
+        this.props.set_filter_page(1);
     }
 
-    pagingClick(){
-        console.log('pagingClick');
+    pagingOnClick(el, e){
+        console.log(el, 'pagingOnClick');
+        this.props.set_filter_page(el);
+        //update redux state.filter.page
+
     }
 
     renderContacts(){
-        if(this.props.contacts.length<=0){
+        // let records_numb = Object.size(this.props.contacts.data);
+
+        // console.log(typeof(this.props.contacts.data)  , 'typeof');
+        // console.warn( Object.values(this.props.contacts.data)  , 'this.props.contacts.data type');
+
+        console.log(typeof(this.props.contacts.data), 'typeof');
+        // console.log(Object.values(this.props.contacts.data) , 'values');
+
+        // let data = this.props.contacts.data.length ==='undefined' ? [] : this.props.contacts.data;
+
+        if( typeof this.props.contacts.data ==='undefined' ){
             return <tr><td className="center" colSpan="8">No records to show</td></tr>
         }
-        return this.props.contacts.map(contact =>{
+        return this.props.contacts.data.map(contact =>{
             return(
                 <tr key={contact.Id}>
                     <td>{contact.FirstName+' '+contact.LastName }</td><td>{contact.CompanyName}</td><td>{contact.OfficeNo}</td><td>{contact.MobileNo}</td><td>{contact.FaxNo}</td><td>{contact.Category}</td><td>{contact.Notes}</td>
@@ -75,14 +92,17 @@ class RecordsList extends Component{
     }
 
     render(){
-        {console.log( 'render')}
-        {console.log(this.props.contacts, 'PROPS contacts')}
+        {console.log( 'RECORDSLIST: render')}
+        // console.log(this.props.contacts.total, 'PROPS contacts TOTAL');
         return(
             <div>
                 <div className="row">
                      <SearchBox />
                 </div>
-                <Alpha set_filter_term={this.set_filter_term} active_term={this.props.filter.term}/>
+                <Alpha
+                    set_filter_term={this.onClickAlpha}
+                    active_term={this.props.filter.term}
+                />
 
                 <div className="card " >
                     <table className="bordered striped highlight  ">
@@ -99,8 +119,11 @@ class RecordsList extends Component{
                 </div>
 
                 <Paging
-                    records_total=""
-                    pagingClick={this.pagingClick}
+                    total={this.props.contacts.total}
+                    records_perPage={this.props.filter.limit}
+                    currentPage={this.props.filter.page}
+                    pager_offset ='3'
+                    pagingOnClick={this.pagingOnClick}
                 />
 
             </div>
@@ -116,4 +139,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps, {fetchContacts, set_filter_term})(RecordsList);
+export default connect(mapStateToProps, {fetchContacts, set_filter_term, set_filter_page})(RecordsList);

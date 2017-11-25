@@ -4,9 +4,16 @@ axios.defaults.baseURL = 'http://phonebook.app/new_phonebook/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
-import { SET_FILTER_TERM, FETCH_CONTACTS, FETCH_CONTACT,  SAVE_CONTACT} from './types';
+import { SET_FILTER_TERM, SET_FILTER_PAGE, FETCH_CONTACTS, FETCH_CONTACT,  SAVE_CONTACT} from './types';
 
 
+
+export function set_filter_page(term){
+    return{
+        type: SET_FILTER_PAGE,
+        payload: term
+    };
+}
 
 export function set_filter_term(term){
     return{
@@ -30,6 +37,8 @@ export function saveContact(values, callback){
 
 export function fetchContact(id){
     const request = axios.get(`/api/index.php?action=get_contact&id=${id}`);
+
+
     return{
         type: FETCH_CONTACT,
         payload: request
@@ -42,15 +51,8 @@ export function fetchContacts(filter){
 
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-    const request = axios.get(`/api/index.php?action=contacts&limit=${filter.limit}&filterBy=${filter.term}`, config );
-    // .then(function(response){
-    //     console.log('response',response);
-    // }).catch(function (error) {
-    //     console.log('error', error);
-    // });
+    const request = axios.get(`/api/index.php?action=get_contacts&limit=${filter.limit}&filterBy=${filter.term}&page=${filter.page}`, config );
 
-
-    //console.log('action request',request);
 
     return{
         type: FETCH_CONTACTS,

@@ -112,8 +112,9 @@ function get_records_by($param){
 function get_all_records($param){
     $where = array();
 
-    if($param['limit']){
-        $limit = 'LIMIT '.$param['limit'];
+    if($param['limit']  && is_array($param['limit']) ){
+
+        $limit = 'LIMIT '.(implode(', ',$param['limit']));
     }else{
         $limit ='';
     }
@@ -123,14 +124,23 @@ function get_all_records($param){
         $where[] = " `".$param['where_like'][0]."` LIKE '".$param['where_like'][1]."%' ";
     }
 
-   $sql = "SELECT * FROM `data` ".(!empty($where) ? "WHERE ".implode(' AND ', $where) : '' )." ORDER BY `FirstName` ASC ". $limit;
+
+    $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM `data` ".(!empty($where) ? "WHERE ".implode(' AND ', $where) : '' )." ORDER BY `FirstName` ASC ". $limit;
     $query= $this->conn->query($sql);
 
-    $data =[];
+    $data =array();
     while($res = mysqli_fetch_assoc($query)){
         $data[] = $res;
     }
-	return $data;
+
+    $total_query = $this->conn->query('SELECT FOUND_ROWS()');
+    $total = mysqli_fetch_assoc($total_query);
+
+
+	return array(
+	    'data'=> $data,
+        'total'=>$total['FOUND_ROWS()']
+    );
 }
 
 function get_record($id){
