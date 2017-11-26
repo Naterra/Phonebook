@@ -5,3 +5,5 @@ export const SAVE_CONTACT   =  'save_contact';
 //Filter
 export const SET_FILTER_TERM     =  'set_filter_term';
 export const SET_FILTER_PAGE     =  'set_filter_page';
+export const RESET_FILTER        =  'reset_filter';
+export const RESET_PAGER        =  'reset_pager';

@@ -1,13 +1,4 @@
-import { SET_FILTER_TERM, SET_FILTER_PAGE } from '../actions/types';
-
-
-//paging state ?
-// const paging = {
-//     page:1,
-//     limit: 20,
-//     total:12000
-// }
-
+import { SET_FILTER_TERM, SET_FILTER_PAGE, RESET_FILTER, RESET_PAGER } from '../actions/types';
 
 
 const initialState ={
@@ -20,19 +11,20 @@ const initialState ={
 export default function (state=initialState, action){
     switch(action.type){
         case SET_FILTER_TERM:
-            // console.log('SET_FILTER_TERM reducer', action);
-            // console.log('NEW STATE', {...state, term:action.payload.term  } );
-
             return {...state,
                 term:action.payload.term,
                 type:action.payload.type
             };
-            //case SET_FILTER_TYPE:
-            //case SET_FILTER_LIMIT:
         case SET_FILTER_PAGE:
             return {...state,
                 page: action.payload
             };
+        case RESET_PAGER:
+            return{...state,
+                page:1
+            }
+        case RESET_FILTER:
+            return initialState;
         default:
             return state;
     }

@@ -139,7 +139,7 @@ function get_all_records($param){
 
 	return array(
 	    'data'=> $data,
-        'total'=>$total['FOUND_ROWS()']
+        'total'=>(int)$total['FOUND_ROWS()']
     );
 }
 

@@ -4,10 +4,23 @@ axios.defaults.baseURL = 'http://phonebook.app/new_phonebook/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
-import { SET_FILTER_TERM, SET_FILTER_PAGE, FETCH_CONTACTS, FETCH_CONTACT,  SAVE_CONTACT} from './types';
+import { RESET_PAGER, RESET_FILTER, SET_FILTER_TERM, SET_FILTER_PAGE, FETCH_CONTACTS, FETCH_CONTACT,  SAVE_CONTACT} from './types';
 
 
 
+export function reset_pager(){
+    return{
+        type: RESET_PAGER,
+        payload: null
+    };
+}
+
+export function reset_filter(){
+    return{
+        type: RESET_FILTER,
+        payload: {}
+    };
+}
 export function set_filter_page(term){
     return{
         type: SET_FILTER_PAGE,

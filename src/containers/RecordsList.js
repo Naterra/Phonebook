@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 //import {bindActionCreators} from 'redux';
 import { fetchContacts, set_filter_term, set_filter_page} from '../actions';
@@ -7,6 +9,7 @@ import { Link } from 'react-router-dom';
 import Alpha from '../components/alphabetMenu';
 import Paging from '../components/paging';
 import SearchBox from './SearchBox';
+
 
 
 class RecordsList extends Component{
@@ -40,9 +43,9 @@ class RecordsList extends Component{
     }
 
     //before render() couse infiniti loop
-    componentWillUpdate(nextProps, nextState) {
-        // console.log('componentWillUpdate'); //, no! setState, no! dispatch actions
-    }
+    // componentWillUpdate(nextProps, nextState) {
+    //     // console.log('componentWillUpdate'); //, no! setState, no! dispatch actions
+    // }
 
     //after render()
     componentDidUpdate(prevProps, prevState) {
@@ -67,28 +70,38 @@ class RecordsList extends Component{
     renderContacts(){
         // let records_numb = Object.size(this.props.contacts.data);
 
-        // console.log(typeof(this.props.contacts.data)  , 'typeof');
+        console.log('renderContacts()');
         // console.warn( Object.values(this.props.contacts.data)  , 'this.props.contacts.data type');
 
-        console.log(typeof(this.props.contacts.data), 'typeof');
-        // console.log(Object.values(this.props.contacts.data) , 'values');
+        if(this.props.contacts.data){
+            // console.log(typeof(this.props.contacts.data), 'typeof');
+            // console.log( this.props.contacts , 'contacts');
+            console.log( this.props.contacts.data.length , 'length');
 
-        // let data = this.props.contacts.data.length ==='undefined' ? [] : this.props.contacts.data;
+            if( this.props.contacts.data.length == 0){
+                console.log('HEREEEE!!!');
+                return <tr><td className="center" colSpan="8">No records to show</td></tr>
+            }
 
-        if( typeof this.props.contacts.data ==='undefined' ){
-            return <tr><td className="center" colSpan="8">No records to show</td></tr>
+            return this.props.contacts.data.map(contact =>{
+                return(
+                    <tr key={contact.Id}>
+                        <td>{contact.FirstName+' '+contact.LastName }</td><td>{contact.CompanyName}</td><td>{contact.OfficeNo}</td><td>{contact.MobileNo}</td><td>{contact.FaxNo}</td><td>{contact.Category}</td><td>{contact.Notes}</td>
+                        <td className="center-align" >
+                            <Link to={`/edit_contact/${contact.Id}`}  className="waves-effect waves-light btn btn-small "><i className="material-icons ">create</i></Link>
+                            <a className="waves-effect waves-light btn btn-small red lighten-2"><i className="material-icons ">delete</i></a>
+                        </td>
+                    </tr>
+                )
+            })
+
         }
-        return this.props.contacts.data.map(contact =>{
-            return(
-                <tr key={contact.Id}>
-                    <td>{contact.FirstName+' '+contact.LastName }</td><td>{contact.CompanyName}</td><td>{contact.OfficeNo}</td><td>{contact.MobileNo}</td><td>{contact.FaxNo}</td><td>{contact.Category}</td><td>{contact.Notes}</td>
-                    <td className="center-align" >
-                        <Link to={`/edit_contact/${contact.Id}`}  className="waves-effect waves-light btn btn-small "><i className="material-icons ">create</i></Link>
-                        <a className="waves-effect waves-light btn btn-small red lighten-2"><i className="material-icons ">delete</i></a>
-                    </td>
-                </tr>
-            )
-        })
+
+
+
+
+
+
     }
 
     render(){
@@ -129,6 +142,13 @@ class RecordsList extends Component{
             </div>
         )
     }
+}
+
+RecordsList.propTypes = {
+    contacts: PropTypes.shape({
+        data: PropTypes.array,
+        total: PropTypes.number
+    }),
 }
 
 function mapStateToProps(state){
