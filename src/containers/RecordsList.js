@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-//import {bindActionCreators} from 'redux';
 import { fetchContacts, set_filter_term, set_filter_page, delete_contact} from '../actions';
 import { Link } from 'react-router-dom';
 

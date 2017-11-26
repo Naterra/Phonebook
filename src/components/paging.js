@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+
+//Redux
+import { connect } from 'react-redux';
+import {  set_filter_page } from '../actions';
+
 import _ from 'lodash';
 
 
@@ -7,7 +12,10 @@ class Paging extends Component{
     constructor(props) {
         super(props);
 
-       this.state = { pages: [] };
+        this.state = {
+            pages: [],
+            total_pages:0
+        };
         this.goToFirst  = this.goToFirst.bind(this);
         this.goToLast   = this.goToLast.bind(this);
     }
@@ -18,12 +26,13 @@ class Paging extends Component{
     }
 
     goToFirst(e){
-        console.log('goToFirst');
+        this.props.set_filter_page(1);
     }
 
     goToLast(e){
-        console.log('goToLast');
+        this.props.set_filter_page(this.state.total_pages);
     }
+
 
     getPager(param){
         console.log(param, 'PAGING/getPager PARAM');
@@ -32,6 +41,8 @@ class Paging extends Component{
 
         // calculate total pages
         let totalPages = Math.ceil(param.total  / param.records_perPage);
+        this.setState({total_pages:totalPages });
+
         let page_offset = parseInt(Math.ceil(visiblePages/2));
 
 
@@ -82,4 +93,10 @@ class Paging extends Component{
     }
 }
 
-export default Paging;
+function mapStateToProps(state){
+    return {
+        filter:   state.filter
+    }
+}
+
+export default connect(mapStateToProps, {set_filter_page})(Paging);
