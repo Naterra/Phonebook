@@ -5,6 +5,7 @@ export default function (state={}, action){
         case FETCH_CONTACT:
             console.log('reducer return ', action.payload.data);
             return action.payload.data  ;
+
         default:
             return state;
     }

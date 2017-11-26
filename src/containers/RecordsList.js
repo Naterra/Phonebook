@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 //import {bindActionCreators} from 'redux';
-import { fetchContacts, set_filter_term, set_filter_page} from '../actions';
+import { fetchContacts, set_filter_term, set_filter_page, delete_contact} from '../actions';
 import { Link } from 'react-router-dom';
 
 import Alpha from '../components/alphabetMenu';
 import Paging from '../components/paging';
 import SearchBox from './SearchBox';
+import RecordsListItem from '../components/recordsListItem';
 
 
 
@@ -18,7 +19,7 @@ class RecordsList extends Component{
 
         this.onClickAlpha  = this.onClickAlpha.bind(this);
         this.pagingOnClick = this.pagingOnClick.bind(this);
-        // console.log(this, "THIS constructor");
+        this.deleteContact = this.deleteContact.bind(this);
     }
 
 
@@ -67,41 +68,25 @@ class RecordsList extends Component{
 
     }
 
-    renderContacts(){
-        // let records_numb = Object.size(this.props.contacts.data);
+    deleteContact(id){
+        console.log(id, 'deleteContact '+ id);
+        this.props.delete_contact(id);
+    }
 
+    renderContacts(){
         console.log('renderContacts()');
-        // console.warn( Object.values(this.props.contacts.data)  , 'this.props.contacts.data type');
 
         if(this.props.contacts.data){
-            // console.log(typeof(this.props.contacts.data), 'typeof');
-            // console.log( this.props.contacts , 'contacts');
-            console.log( this.props.contacts.data.length , 'length');
-
             if( this.props.contacts.data.length == 0){
-                console.log('HEREEEE!!!');
                 return <tr><td className="center" colSpan="8">No records to show</td></tr>
             }
 
             return this.props.contacts.data.map(contact =>{
                 return(
-                    <tr key={contact.Id}>
-                        <td>{contact.FirstName+' '+contact.LastName }</td><td>{contact.CompanyName}</td><td>{contact.OfficeNo}</td><td>{contact.MobileNo}</td><td>{contact.FaxNo}</td><td>{contact.Category}</td><td>{contact.Notes}</td>
-                        <td className="center-align" >
-                            <Link to={`/edit_contact/${contact.Id}`}  className="waves-effect waves-light btn btn-small "><i className="material-icons ">create</i></Link>
-                            <a className="waves-effect waves-light btn btn-small red lighten-2"><i className="material-icons ">delete</i></a>
-                        </td>
-                    </tr>
+                    <RecordsListItem  deleteContact={this.deleteContact} key={contact.Id} contact={contact} />
                 )
             })
-
         }
-
-
-
-
-
-
     }
 
     render(){
@@ -112,15 +97,13 @@ class RecordsList extends Component{
                 <div className="row">
                      <SearchBox />
                 </div>
-                <Alpha
-                    set_filter_term={this.onClickAlpha}
-                    active_term={this.props.filter.term}
-                />
+
+                <Alpha set_filter_term={this.onClickAlpha} active_term={this.props.filter.term} />
 
                 <div className="card " >
                     <table className="bordered striped highlight  ">
                         <thead className="teal lighten-1 white-text ">
-                            <tr className="">
+                            <tr>
                                 <th>Name</th><th>Company Name</th><th>Work Phone</th><th>Mobile Phone</th><th>Fax No.</th><th>Category</th><th style={{width:'10%'}}>Notes</th><th tyle={{width:'35px'}}>Modify</th>
                             </tr>
                         </thead>
@@ -159,4 +142,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps, {fetchContacts, set_filter_term, set_filter_page})(RecordsList);
+export default connect(mapStateToProps, {fetchContacts, set_filter_term, set_filter_page, delete_contact})(RecordsList);

@@ -8,6 +8,8 @@ class Paging extends Component{
         super(props);
 
        this.state = { pages: [] };
+        this.goToFirst  = this.goToFirst.bind(this);
+        this.goToLast   = this.goToLast.bind(this);
     }
 
     componentWillReceiveProps(nextProps){
@@ -15,7 +17,13 @@ class Paging extends Component{
         this.getPager(nextProps);
     }
 
+    goToFirst(e){
+        console.log('goToFirst');
+    }
 
+    goToLast(e){
+        console.log('goToLast');
+    }
 
     getPager(param){
         console.log(param, 'PAGING/getPager PARAM');
@@ -66,9 +74,9 @@ class Paging extends Component{
         console.log(this.props, 'PAGING: render');
         return (
                 <ul className="pagination center">
-                    {this.state.pages.length>0 ? <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li> : ''}
+                    {this.state.pages.length>0 ? <li className="disabled"><a onClick={(e) =>this.goToFirst(e)}><i className="material-icons">chevron_left</i></a></li> : ''}
                          { this.getList()  }
-                    {this.state.pages.length>0 ? <li className="waves-effect"><a><i className="material-icons">chevron_right</i></a></li> : ''}
+                    {this.state.pages.length>0 ? <li className="waves-effect"><a onClick={(e) =>this.goToLast(e)}><i className="material-icons">chevron_right</i></a></li> : ''}
                 </ul>
         )
     }

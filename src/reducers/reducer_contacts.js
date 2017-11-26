@@ -1,16 +1,21 @@
-const FETCH_CONTACTS = 'fetch_contacts';
-const FETCH_CONTACT  = 'fetch_contact';
+import { FETCH_CONTACTS, DELETE_CONTACT } from '../actions/types';
+
 
 const INITIAL_STATE = {
-    contacts:[],
+    data:[],
     total:0
 };
 
 export default function (state=INITIAL_STATE, action){
     switch(action.type){
         case FETCH_CONTACTS:
-            //console.log('reducer return ', action.payload.data);
             return action.payload.data  ;
+        case DELETE_CONTACT:
+            return {
+                ...state,
+                data: state.data.filter(contact =>
+                contact.Id !== action.id  )
+            };
         default:
             return state;
     }

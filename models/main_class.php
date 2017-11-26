@@ -192,8 +192,11 @@ function get_record($id){
  function delete_record($id){
      if($id>=0 && is_numeric($id)){
          $res  = $this->conn->query("DELETE FROM data WHERE Id=".$id);
+         return $res==1 ? true: false;
+     }else{
+         return false;
      }
-	 return $res;
+
  }
  
  function Redirect($url, $permanent = false){

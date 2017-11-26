@@ -35,6 +35,12 @@ if( $url['action'] =='get_contacts' && $_SERVER['REQUEST_METHOD']=="GET"){
     echo json_encode($records);
 }
 
+// DELETE contact
+if( $url['action'] =='delete_contact' && $_SERVER['REQUEST_METHOD']=="POST"){
+    $res = $mainclass->delete_record($_POST['id']) ;
+    echo json_encode($res);
+}
+
 //INSERT OR UPDATE
 if( $url['action'] =='save_contact' && $_SERVER['REQUEST_METHOD']=="POST"){
     //print_r($_POST);

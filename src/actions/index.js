@@ -4,9 +4,18 @@ axios.defaults.baseURL = 'http://phonebook.app/new_phonebook/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
-import { RESET_PAGER, RESET_FILTER, SET_FILTER_TERM, SET_FILTER_PAGE, FETCH_CONTACTS, FETCH_CONTACT,  SAVE_CONTACT} from './types';
+import { DELETE_CONTACT, RESET_PAGER, RESET_FILTER, SET_FILTER_TERM, SET_FILTER_PAGE, FETCH_CONTACTS, FETCH_CONTACT,  SAVE_CONTACT} from './types';
 
 
+
+export function delete_contact(id){
+    const request = axios.post(`/api/index.php?action=delete_contact`, {id:id} );
+
+    return{
+        type:DELETE_CONTACT,
+        id
+    }
+}
 
 export function reset_pager(){
     return{
