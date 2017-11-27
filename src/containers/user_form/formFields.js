@@ -19,7 +19,7 @@ export const contact_fields = [
     ];
 
 export const other = [
-    {label: 'Notes', name:'Notes', type:'textarea'},
+    {label: 'Notes', name:'Notes'},
     ];
 
 export const address_fields = [

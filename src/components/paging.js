@@ -48,12 +48,14 @@ class Paging extends Component{
 
         let startPage, endPage;
 
+        //if on begining
         if(currentPage+page_offset<=visiblePages){
             startPage = 1;
             endPage   = visiblePages>totalPages? totalPages: visiblePages ;
         }
+        //if close to end
         else if(currentPage+page_offset>=totalPages){
-            startPage = totalPages-visiblePages+1;
+            startPage = totalPages-visiblePages<1 ? 1 :totalPages-visiblePages ; //9 -10 +1 =0
             endPage   = totalPages;
         }
         else{
@@ -61,7 +63,7 @@ class Paging extends Component{
             endPage = currentPage+page_offset;
         }
 
-        console.warn("Total :"+param.total+" Pages:"+totalPages+" Current:"+currentPage +" Offset:"+ page_offset+" startPage:"+startPage+"  End:"+ endPage+" visiblePages:"+visiblePages );
+        console.warn("Total rec:"+param.total+" Pages:"+totalPages+" Current:"+currentPage +" Offset:"+ page_offset+" startPage:"+startPage+"  End:"+ endPage+" visiblePages:"+visiblePages );
 
         let pages = _.range(parseInt(startPage), parseInt(endPage)+ 1);
         // console.log(pages, 'pages');

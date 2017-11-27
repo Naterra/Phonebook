@@ -24,48 +24,55 @@ function add_record($param){
 //    echo '<pre>';
 //    print_r($param);
 //    echo '</pre>';
+    $id = isset($param['Id']) ? $param['Id'] : 'null';
+//    $firstName   =  isset($param['FirstName']) ? $param['FirstName']  : '';
+//    $lastName    =  isset($param['LastName']) ? $param['LastName']  : '';
+//    $companyName =  isset($param['CompanyName']) ? $param['CompanyName']  : '';
+//    $category    =  isset($param['Category']) ? $param['Category']  : '';
+//    $notes       =  isset($param['Notes']) ? $param['Notes']  : '';
 
-    $firstName   =  $param['FirstName'] ? $param['FirstName']  : 'Null';
-    $lastName    =  $param['LastName'] ? $param['LastName']  : 'Null';
-    $companyName =  $param['CompanyName'] ? $param['CompanyName']  : 'Null';
-    $category    =  $param['Category'] ? $param['Category']  : 'Null';
+    foreach($param as $k=>$p){
+        $param[$p] = isset($p) ? $p : '';
+    }
 
-    $res= $this->conn->query("INSERT INTO `data` SET 
-                                        `Id` = '".$param['Id']."',
-                                        `FirstName` = '".htmlentities($firstName, ENT_QUOTES)."',
-                                        `LastName` = '".htmlentities($lastName, ENT_QUOTES)."',
-                                        `CompanyName` = '".htmlentities($companyName, ENT_QUOTES)."',
-                                        `Title` = '".htmlentities($param['Title'], ENT_QUOTES)."',
-                                        `OfficeNo` = '".htmlentities($param['OfficeNo'], ENT_QUOTES)."', 
-                                        `FaxNo` = '".htmlentities($param['FaxNo'], ENT_QUOTES)."',
-                                        `MobileNo` = '".htmlentities($param['MobileNo'], ENT_QUOTES)."',
-                                        `HomeNo` = '".htmlentities($param['HomeNo'], ENT_QUOTES)."',
-                                        `OtherNo` = '".htmlentities($param['OtherNo'], ENT_QUOTES)."',
-                                        `Email` = '".htmlentities($param['Email'], ENT_QUOTES)."', 
-                                        `Street` = '".htmlentities($param['Street'], ENT_QUOTES)."',
-                                        `City` = '".htmlentities($param['City'], ENT_QUOTES)."',
-                                        `State` = '".htmlentities($param['State'], ENT_QUOTES)."',
-                                        `Zip` = '".htmlentities($param['Zip'], ENT_QUOTES)."',
-                                        `Notes` = '".htmlentities($param['Notes'], ENT_QUOTES)."',
-                                        `Category`  = '".htmlentities($category, ENT_QUOTES)."' 
-									ON DUPLICATE KEY UPDATE
-                                        `FirstName` = '".htmlentities($firstName, ENT_QUOTES)."',
-                                        `LastName` = '".htmlentities($lastName, ENT_QUOTES)."',
-                                        `CompanyName` = '".htmlentities($companyName, ENT_QUOTES)."',
-                                        `Title` = '".htmlentities($param['Title'], ENT_QUOTES)."',
-                                        `OfficeNo` = '".htmlentities($param['OfficeNo'], ENT_QUOTES)."', 
-                                        `FaxNo` = '".htmlentities($param['FaxNo'], ENT_QUOTES)."',
-                                        `MobileNo` = '".htmlentities($param['MobileNo'], ENT_QUOTES)."',
-                                        `HomeNo` = '".htmlentities($param['HomeNo'], ENT_QUOTES)."',
-                                        `OtherNo` = '".htmlentities($param['OtherNo'], ENT_QUOTES)."',
-                                        `Email` = '".htmlentities($param['Email'], ENT_QUOTES)."', 
-                                        `Street` = '".htmlentities($param['Street'], ENT_QUOTES)."',
-                                        `City` = '".htmlentities($param['City'], ENT_QUOTES)."',
-                                        `State` = '".htmlentities($param['State'], ENT_QUOTES)."',
-                                        `Zip` = '".htmlentities($param['Zip'], ENT_QUOTES)."',
-                                        `Notes` = '".htmlentities($param['Notes'], ENT_QUOTES)."',
-                                        `Category`  = '".htmlentities($category, ENT_QUOTES)."'
-									");
+   echo  $sql ="INSERT INTO `data` SET 
+            `Id` =   ".$id.",
+            ".(isset($param['FirstName']) ?  "`FirstName` = '".htmlentities($param['FirstName'])."', " :'')."
+            ".(isset($param['LastName']) ?  "`LastName` = '".htmlentities($param['LastName'])."', " :'')."
+            ".(isset($param['CompanyName']) ?  "`CompanyName` = '".htmlentities($param['CompanyName'])."', " :'')."
+            ".(isset($param['Title']) ?  "`Title` = '".htmlentities($param['Title'])."', " :'')."
+            ".(isset($param['OfficeNo']) ?  "`OfficeNo` = '".htmlentities($param['OfficeNo'])."', " :'')."
+            ".(isset($param['FaxNo']) ?  "`FaxNo` = '".htmlentities($param['FaxNo'])."', " :'')."
+            ".(isset($param['MobileNo']) ?  "`MobileNo` = '".htmlentities($param['MobileNo'])."'," :'')."
+            ".(isset($param['HomeNo']) ?  "`HomeNo` = '".htmlentities($param['HomeNo'])."'," :'')."
+            ".(isset($param['OtherNo']) ?  "`OtherNo` = '".htmlentities($param['OtherNo'])."'," :'')."
+            ".(isset($param['Email']) ?  "`Email` = '".htmlentities($param['Email'])."'," :'')."
+            ".(isset($param['Street']) ?  "`Street` = '".htmlentities($param['Street'])."'," :'')."
+            ".(isset($param['City']) ?  "`City` = '".htmlentities($param['City'])."'," :'')."
+            ".(isset($param['State']) ?  "`State` = '".htmlentities($param['State'])."'," :'')."
+            ".(isset($param['Zip']) ?  "`Zip` = '".htmlentities($param['Zip'])."'," :'')."
+            `Notes` = ".(isset($param['Notes']) ?  "'".htmlentities($param['Notes'])."'" : "''" ).",
+            `Category` = ".(isset($param['Category']) ?  "'".htmlentities($param['Category'])."'" : "''")."
+                                                                   
+            ON DUPLICATE KEY UPDATE
+                ".(isset($param['FirstName']) ?  "`FirstName` = '".htmlentities($param['FirstName'])."'," :'')."
+                ".(isset($param['LastName']) ?  "`LastName` = '".htmlentities($param['LastName'])."'," :'')."
+                ".(isset($param['CompanyName']) ?  "`CompanyName` = '".htmlentities($param['CompanyName'])."'," :'')."
+                ".(isset($param['Title']) ?  "`Title` = '".htmlentities($param['Title'])."'," :'')."
+                ".(isset($param['OfficeNo']) ?  "`OfficeNo` = '".htmlentities($param['OfficeNo'])."'," :'')."
+                ".(isset($param['FaxNo']) ?  "`FaxNo` = '".htmlentities($param['FaxNo'])."'," :'')."
+                ".(isset($param['MobileNo']) ?  "`MobileNo` = '".htmlentities($param['MobileNo'])."'," :'')."
+                ".(isset($param['HomeNo']) ?  "`HomeNo` = '".htmlentities($param['HomeNo'])."'," :'')."
+                ".(isset($param['OtherNo']) ?  "`OtherNo` = '".htmlentities($param['OtherNo'])."'," :'')."
+                ".(isset($param['Email']) ?  "`Email` = '".htmlentities($param['Email'])."'," :'')."
+                ".(isset($param['Street']) ?  "`Street` = '".htmlentities($param['Street'])."'," :'')."
+                ".(isset($param['City']) ?  "`City` = '".htmlentities($param['City'])."'," :'')."
+                ".(isset($param['State']) ?  "`State` = '".htmlentities($param['State'])."'," :'')."
+                ".(isset($param['Zip']) ?  "`Zip` = '".htmlentities($param['Zip'])."'," :'')."
+                `Notes` = ".(isset($param['Notes']) ?  "'".htmlentities($param['Notes'])."'" : "''").", 
+                `Category` = ".(isset($param['Category']) ?  "'".htmlentities($param['Category'])."'" : "''")."
+									";
+    $res= $this->conn->query($sql);
     return $res;
 
 }

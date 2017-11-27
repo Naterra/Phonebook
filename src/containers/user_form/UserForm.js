@@ -1,33 +1,27 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 
 // Redux
 import { connect } from "react-redux";
-import { saveContact, fetchContact } from "../actions";
+import { saveContact, fetchContact } from "../../actions";
+import { Field, reduxForm } from "redux-form";
 
+// Fields
 import formFields, {
   address_fields,
   contact_fields,
   other
-} from "./user_form/formFields";
-import formFieldsTempl from "./user_form/formFieldTempl";
+} from "./formFields";
+import formFieldsTempl from "./formFieldTempl";
 
-class EditContactForm extends Component {
-  componentWillMount() {
-    const { id } = this.props.match.params;
-    console.log(id, "ID");
-
-    //get rec
-    this.props.fetchContact(id);
-  }
-
+class UserForm extends Component {
   formSubmit(values) {
     console.log(values, "SUBMIT FORM");
     this.props.saveContact(values, () => {
       this.props.history.push("/");
     });
   }
+
 
   renderFields(array = []) {
     return array.map(field => {
@@ -45,10 +39,6 @@ class EditContactForm extends Component {
   }
 
   render() {
-    //console.log( state, 'state');
-    // console.log(this.props.initialValues, 'this.props.initialValues');
-    // console.log(this.props, 'this.props');
-
     const { handleSubmit } = this.props;
 
     return (
@@ -69,7 +59,6 @@ class EditContactForm extends Component {
         <Link to="/" className="red btn-flat white-text">
           Cansel
         </Link>
-
         <button type="submit" className="teal btn-flat right white-text">
           Save
           <i className="material-icons right">done</i>
@@ -97,8 +86,8 @@ function validate(values) {
 
 export default connect(mapStateToProps, { fetchContact, saveContact })(
   reduxForm({
-    form: "ContactForm",
+    form: "UserForm",
     enableReinitialize: true,
     keepDirtyOnReinitialize: true
-  })(EditContactForm)
+  })(UserForm)
 );
