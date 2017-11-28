@@ -35,7 +35,7 @@ function add_record($param){
         $param[$p] = isset($p) ? $p : '';
     }
 
-   echo  $sql ="INSERT INTO `data` SET 
+   $sql ="INSERT INTO `data` SET 
             `Id` =   ".$id.",
             ".(isset($param['FirstName']) ?  "`FirstName` = '".htmlentities($param['FirstName'])."', " :'')."
             ".(isset($param['LastName']) ?  "`LastName` = '".htmlentities($param['LastName'])."', " :'')."

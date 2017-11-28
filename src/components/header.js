@@ -5,6 +5,8 @@ import UserForm from "../containers/user_form/UserForm";
 
 class Header extends Component {
   render() {
+    console.log(this.props.history, "HISTORY");
+
     return (
       <nav className="main_nav">
         <div className="nav-wrapper">
@@ -18,10 +20,7 @@ class Header extends Component {
 
           <ul className="right hide-on-med-and-down">
             <li>
-              <a>Add New Contact</a>
-            </li>
-            <li>
-              <Modal header="Modal Header" trigger={<Button>MODAL</Button>}>
+              <Modal header="Add New Contact" trigger={<a>Add New Contact</a>}>
                 <UserForm />
               </Modal>
             </li>
