@@ -9,7 +9,7 @@ import ReduxPromise from "redux-promise";
 
 // CSS
 import "materialize-css/dist/css/materialize.min.css";
-// import "materialize-css/dist/js/materialize.js";
+import "../node_modules/materialize-css/dist/js/materialize.js";
 import "./css/style.css";
 
 import App from "./components/app";
@@ -34,6 +34,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+console.log(process.env, "PROCCESS ENV");
 
 // Once the DOM has loaded, render our app.
 // NOTE FOR PRODUCTION: DevTools should not be used in production apps!

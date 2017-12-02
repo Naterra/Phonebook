@@ -29,16 +29,6 @@ class UserForm extends Component {
     });
   }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //   console.log("componentWillUpdate");
-  // }
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("componentDidUpdate  prevState");
-  // }
-  //
-  // componentWillUnmount() {
-  //   console.log("componentWillUnmount");
-  // }
   renderFields(array = []) {
     return array.map(field => {
       // console.log(field.name, 'FIELD');
@@ -56,35 +46,34 @@ class UserForm extends Component {
   renderContent() {
     const { handleSubmit } = this.props;
 
-      return (
-        <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
-          <div className="row">
-            <div className="col s6"> {this.renderFields(formFields)}</div>
-            <div className="col s6">{this.renderFields(address_fields)}</div>
-          </div>
+    return (
+      <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
+        <div className="row">
+          <div className="col s6"> {this.renderFields(formFields)}</div>
+          <div className="col s6">{this.renderFields(address_fields)}</div>
+        </div>
 
-          <br />
-          <div className="row">
-            <div className="col s12"> {this.renderFields(contact_fields)}</div>
-          </div>
-          <div className="row">
-            <div className="col s12"> {this.renderFields(other)}</div>
-          </div>
+        <br />
+        <div className="row">
+          <div className="col s12"> {this.renderFields(contact_fields)}</div>
+        </div>
+        <div className="row">
+          <div className="col s12"> {this.renderFields(other)}</div>
+        </div>
 
-          <Link to="/" className="red btn-flat white-text">
-            Cansel
-          </Link>
-          <button type="submit" className="teal btn-flat right white-text">
-            Save
-            <i className="material-icons right">done</i>
-          </button>
-        </form>
-      );
-
+        <Link to="/" className="red btn-flat white-text">
+          Cansel
+        </Link>
+        <button type="submit" className="teal btn-flat right white-text">
+          Save
+          <i className="material-icons right">done</i>
+        </button>
+      </form>
+    );
   }
 
   render() {
-    console.log("render");
+    console.log("UserForm: render");
     return <div>{this.renderContent()}</div>;
   }
 }

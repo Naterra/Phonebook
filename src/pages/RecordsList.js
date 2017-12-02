@@ -100,7 +100,7 @@ class RecordsList extends Component {
 
   render() {
     {
-      console.log("RECORDSLIST: render");
+      console.log("RecordsList: render");
     }
     // console.log(this.props.contacts.total, 'PROPS contacts TOTAL');
     return (

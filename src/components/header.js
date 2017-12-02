@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-materialize";
 import CreateUserModal from "./createUserModal";
-
-import UserForm from "../containers/user_form/UserForm";
 
 class Header extends Component {
   render() {
-    console.log(this.props.history, "HISTORY");
-
     return (
       <nav className="main_nav">
         <div className="nav-wrapper">
@@ -26,8 +21,6 @@ class Header extends Component {
           </ul>
 
           <ul className="side-nav" id="mobile-demo">
-            <li />
-            <li />
           </ul>
         </div>
       </nav>

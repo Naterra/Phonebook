@@ -12,8 +12,8 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, "build"),
-    publicPath: "/",
+    path: path.resolve(__dirname, "public/build/"),
+    publicPath: "build/",
     filename: "[name].js"
   },
   module: {
@@ -41,34 +41,14 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    historyApiFallback: true,
-    host: "localhost",
-    hot: true,
-    port: 3000
-  },
+
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-
-    //Do not generate chunks for this project
-    // new webpack.optimize.CommonsChunkPlugin({
-    //     names: ['vendor','manifest'],
-    //     //minChunks: Infinity,
-    //     //filename: 'vendor.js',
-    // }),
-
     // generate index.html automatically for this project
     new HtmlWebpackPlugin({
-      template: "src/index.html"
+      template: "src/index.html",
+      filename: path.resolve(__dirname, "public/index.html")
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
-
-    // new webpack.DefinePlugin({
-    //     'process.env': {
-    //         CLIENT: JSON.stringify(true),
-    //         'NODE_ENV': JSON.stringify('development'),
-    //     }
-    // }),
   ]
 };
