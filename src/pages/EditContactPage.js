@@ -10,8 +10,8 @@ import formFields, {
   address_fields,
   contact_fields,
   other
-} from "./user_form/formFields";
-import formFieldsTempl from "./user_form/formFieldTempl";
+} from "../containers/user_form/formFields";
+import formFieldsTempl from "../containers/user_form/formFieldTempl";
 
 class EditContactForm extends Component {
   componentWillMount() {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-materialize";
+import CreateUserModal from "./createUserModal";
 
 import UserForm from "../containers/user_form/UserForm";
 
@@ -20,16 +21,13 @@ class Header extends Component {
 
           <ul className="right hide-on-med-and-down">
             <li>
-              <Modal header="Add New Contact" trigger={<a>Add New Contact</a>}>
-                <UserForm />
-              </Modal>
+              <CreateUserModal />
             </li>
           </ul>
 
           <ul className="side-nav" id="mobile-demo">
-            <li>
-              <a>Add New Contact</a>
-            </li>
+            <li />
+            <li />
           </ul>
         </div>
       </nav>

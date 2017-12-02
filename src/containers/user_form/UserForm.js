@@ -18,24 +18,27 @@ import formFieldsTempl from "./formFieldTempl";
 class UserForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user_created: false
-    };
   }
 
   formSubmit(values) {
     console.log(values, "SUBMIT FORM");
 
     this.props.saveContact(values, () => {
-      //this.props.history.push("/");
-      this.setState({ user_created: true });
-      console.log(this, "this - callback ");
+      //console.log("this - callback ");
+      this.props.userCreatedCallback(values);
     });
   }
 
-  user_created() {
-    render(<div>New User was created</div>);
-  }
+  // componentWillUpdate(nextProps, nextState) {
+  //   console.log("componentWillUpdate");
+  // }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("componentDidUpdate  prevState");
+  // }
+  //
+  // componentWillUnmount() {
+  //   console.log("componentWillUnmount");
+  // }
   renderFields(array = []) {
     return array.map(field => {
       // console.log(field.name, 'FIELD');
@@ -53,13 +56,6 @@ class UserForm extends Component {
   renderContent() {
     const { handleSubmit } = this.props;
 
-    if (this.state.user_created == true) {
-      return (
-        <div className="card-panel">
-          <h5 className="teal-text ">User was created</h5>
-        </div>
-      );
-    } else {
       return (
         <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
           <div className="row">
@@ -84,10 +80,11 @@ class UserForm extends Component {
           </button>
         </form>
       );
-    }
+
   }
 
   render() {
+    console.log("render");
     return <div>{this.renderContent()}</div>;
   }
 }
