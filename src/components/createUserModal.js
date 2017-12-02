@@ -22,6 +22,11 @@ class createUserModal extends Component {
     this.setState(this.default_param);
   }
 
+  setToDefault() {
+    // Set to default
+    this.setState(this.default_param);
+  }
+
   userCreatedCallback(val) {
     // console.log("userCreatedCallback");
     this.setState({ user_created: true, modal_header: "" });
@@ -34,6 +39,10 @@ class createUserModal extends Component {
         modalOptions={{
           complete: () => {
             this.modalClosed();
+          },
+          ready: (modal, trigger) => {
+            console.log("OPEN MODAL");
+            this.setToDefault();
           }
         }}
         trigger={<a>Add New Contact</a>}

@@ -16,9 +16,6 @@ import formFieldsTempl from "../containers/user_form/formFieldTempl";
 class EditContactForm extends Component {
   componentWillMount() {
     const { id } = this.props.match.params;
-    console.log(id, "ID");
-
-    //get rec
     this.props.fetchContact(id);
   }
 
@@ -45,7 +42,7 @@ class EditContactForm extends Component {
   }
 
   render() {
-    //console.log( state, 'state');
+    console.log(this, "THIS");
     // console.log(this.props.initialValues, 'this.props.initialValues');
     // console.log(this.props, 'this.props');
 

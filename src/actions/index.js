@@ -1,6 +1,6 @@
 import axios from 'axios';
-//axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-axios.defaults.baseURL = 'http://phonebook.app/new_phonebook/';
+// axios.defaults.baseURL = 'http://phonebook.app/new_phonebook/';
+axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 

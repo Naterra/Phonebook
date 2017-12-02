@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "serve": "webpack-dev-server",
+    "serve": "webpack-dev-server --config webpack.config.dev.js",
     "build": "npm run clean && webpack --config webpack.config.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist"

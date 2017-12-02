@@ -7,8 +7,11 @@ import EditContactPage from "../pages/EditContactPage";
 
 export default class App extends Component {
   render() {
+    // console.log(Route, "Route");
+    // console.log(BrowserRouter, "BrowserRouter");
+
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.BASENAME}>
         <div className="container">
           <Header />
           <Route exact path="/" component={RecordsList} />

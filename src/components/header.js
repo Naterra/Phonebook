@@ -3,6 +3,7 @@ import CreateUserModal from "./createUserModal";
 
 class Header extends Component {
   render() {
+
     return (
       <nav className="main_nav">
         <div className="nav-wrapper">
@@ -20,8 +21,7 @@ class Header extends Component {
             </li>
           </ul>
 
-          <ul className="side-nav" id="mobile-demo">
-          </ul>
+          <ul className="side-nav" id="mobile-demo" />
         </div>
       </nav>
     );

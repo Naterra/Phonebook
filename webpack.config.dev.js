@@ -67,6 +67,7 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         BASENAME: JSON.stringify("/"),
+        API_URL: JSON.stringify("http://phonebook.app/new_phonebook/"),
         CLIENT: JSON.stringify(true),
         NODE_ENV: JSON.stringify("development")
       }

@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import ReduxPromise from "redux-promise";
 //import reduxThunk from 'redux-thunk';
 
-// CSS
+// CSS/js
 import "materialize-css/dist/css/materialize.min.css";
 import "../node_modules/materialize-css/dist/js/materialize.js";
 import "./css/style.css";
@@ -35,18 +35,10 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-console.log(process.env, "PROCCESS ENV");
+if (process.env.NODE_ENV == "production") {
+  console.warn("PRODUCTION MODE");
+} else {
+  console.warn("DEVELOPEMENT MODE");
+}
 
-// Once the DOM has loaded, render our app.
-// NOTE FOR PRODUCTION: DevTools should not be used in production apps!
-// window.onload = () => {
-//     const root = (
-//         <Provider store={store}>
-//             <div>
-//                 <TodoApp/>
-//                 <DevTools/>
-//             </div>
-//         </Provider>
-//     );
-//     render(root, document.getElementById('app'));
-// }
+console.log(process.env, "PROCCESS ENV");
