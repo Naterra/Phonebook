@@ -10,7 +10,7 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 
 include($_SERVER['DOCUMENT_ROOT']."/phonebook/conn_db.php");
-include("../models/main_class.php");
+include("./main_class.php");
 $mainclass = new Mainclass();
 
 
