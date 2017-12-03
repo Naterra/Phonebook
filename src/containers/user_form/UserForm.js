@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
-
+import validateEmails from "../../utils/validateEmails";
 // Redux
 import { connect } from "react-redux";
 import { saveContact, fetchContact } from "../../actions";
 import { Field, reduxForm } from "redux-form";
 
 // Fields
-import formFields, {
-  address_fields,
-  contact_fields,
-  other
-} from "./formFields";
+import formFields from "./formFields";
 
 import formFieldsTempl from "./formFieldTempl";
 
@@ -49,21 +45,21 @@ class UserForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
         <div className="row">
-          <div className="col s6"> {this.renderFields(formFields)}</div>
-          <div className="col s6">{this.renderFields(address_fields)}</div>
+          <div className="col s6"> {this.renderFields(formFields.pers)}</div>
+          <div className="col s6">{this.renderFields(formFields.address)}</div>
         </div>
 
         <br />
         <div className="row">
-          <div className="col s12"> {this.renderFields(contact_fields)}</div>
+          <div className="col s12">
+            {" "}
+            {this.renderFields(formFields.contact)}
+          </div>
         </div>
         <div className="row">
-          <div className="col s12"> {this.renderFields(other)}</div>
+          <div className="col s12"> {this.renderFields(formFields.other)}</div>
         </div>
 
-        <Link to="/" className="red btn-flat white-text">
-          Cansel
-        </Link>
         <button type="submit" className="teal btn-flat right white-text">
           Save
           <i className="material-icons right">done</i>
@@ -73,7 +69,7 @@ class UserForm extends Component {
   }
 
   render() {
-    console.log("UserForm: render");
+    console.log(this, "UserForm: render");
     return <div>{this.renderContent()}</div>;
   }
 }
@@ -87,16 +83,33 @@ function mapStateToProps({ selected_contact }) {
 function validate(values) {
   const errors = {};
 
-  if (!values.firstName) {
-    errors.title = "Enter a First Name";
-  }
+  let required_pers_fields = formFields.pers.filter(elem => {
+    return elem.reguired == true;
+  });
 
+  let required_contact_fields = formFields.contact.filter(elem => {
+    return elem.reguired == true;
+  });
+
+  let required_fields = [].concat(
+    required_pers_fields,
+    required_contact_fields
+  );
+
+  _.each(required_fields, ({ name }) => {
+    if (!values[name]) {
+      errors[name] = "You must provide a value";
+    }
+  });
+
+  errors.Email = validateEmails(values.Email || "");
   return errors;
 }
 
 export default connect(mapStateToProps, { fetchContact, saveContact })(
   reduxForm({
-    form: "UserForm",
+    form: "NewUserForm",
+    validate: validate,
     enableReinitialize: false,
     keepDirtyOnReinitialize: false
   })(UserForm)

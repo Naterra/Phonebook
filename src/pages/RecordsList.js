@@ -44,37 +44,21 @@ class RecordsList extends Component {
     return this.props.filter !== nextProps.filter ? false : true;
   }
 
-  //before render() couse infiniti loop
-  // componentWillUpdate(nextProps, nextState) {
-  //     // console.log('componentWillUpdate'); //, no! setState, no! dispatch actions
-  // }
-
-  //after render()
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(  'componentDidUpdate');
-  }
-
   onClickAlpha(letter, e) {
-    console.log("letter:", letter);
     //Update filter in store
     this.props.set_filter_term({ term: letter, type: "alpha" });
     this.props.set_filter_page(1);
   }
 
   pagingOnClick(el, e) {
-    console.log(el, "pagingOnClick");
     this.props.set_filter_page(el);
-    //update redux state.filter.page
   }
 
   deleteContact(id) {
-    console.log(id, "deleteContact " + id);
     this.props.delete_contact(id);
   }
 
   renderContacts() {
-    console.log("renderContacts()");
-
     if (this.props.contacts.data) {
       if (this.props.contacts.data.length == 0) {
         return (
@@ -99,10 +83,6 @@ class RecordsList extends Component {
   }
 
   render() {
-    {
-      console.log("RecordsList: render");
-    }
-    // console.log(this.props.contacts.total, 'PROPS contacts TOTAL');
     return (
       <div>
         <div className="row">
@@ -122,7 +102,6 @@ class RecordsList extends Component {
                 <th>Company Name</th>
                 <th>Work Phone</th>
                 <th>Mobile Phone</th>
-                <th>Fax No.</th>
                 <th>Category</th>
                 <th style={{ width: "10%" }}>Notes</th>
                 <th tyle={{ width: "35px" }}>Modify</th>

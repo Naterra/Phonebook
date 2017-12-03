@@ -5,7 +5,11 @@ import { Navbar, NavItem } from "react-materialize";
 class Header extends Component {
   render() {
     return (
-      <Navbar brand="logo" right>
+      <Navbar
+        brand="Dib Management Phonebook"
+        right
+        href={process.env.BASENAME}
+      >
         <li>
           <CreateUserModal />
         </li>

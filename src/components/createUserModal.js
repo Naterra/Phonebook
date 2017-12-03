@@ -48,7 +48,7 @@ class createUserModal extends Component {
         trigger={<a>Add New Contact</a>}
       >
         {this.state.user_created == false && (
-          <UserForm userCreatedCallback={this.userCreatedCallback} />
+          <UserForm show_empty="true" userCreatedCallback={this.userCreatedCallback} />
         )}
         {this.state.user_created == true && (
           <h5 className="center teal-text"> New contact was created</h5>

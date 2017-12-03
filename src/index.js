@@ -1,26 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 
 // Redux
+import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import ReduxPromise from "redux-promise";
-//import reduxThunk from 'redux-thunk';
+import { composeWithDevTools } from "redux-devtools-extension";
 
 // CSS/js
 import "materialize-css/dist/css/materialize.min.css";
 // import "../node_modules/materialize-css/dist/js/materialize.js";
 import "./css/style.css";
 
-// window.Hammer = require('./node_modules/materialize-css/js/hammer.min.js');
-
 import App from "./components/app";
 import reducers from "./reducers";
-
-import { composeWithDevTools } from "redux-devtools-extension";
-
-// Old connection
-// const configureStore = applyMiddleware(ReduxPromise)(createStore);
 
 const store = createStore(
   reducers,
@@ -30,17 +23,15 @@ const store = createStore(
   )
 );
 
+if (process.env.NODE_ENV == "production") {
+  console.warn(process.env, "PRODUCTION MODE");
+} else {
+  console.warn(process.env, "DEVELOPEMENT MODE");
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById("root")
 );
-
-if (process.env.NODE_ENV == "production") {
-  console.warn("PRODUCTION MODE");
-} else {
-  console.warn("DEVELOPEMENT MODE");
-}
-
-console.log(process.env, "PROCCESS ENV");
