@@ -97,7 +97,7 @@ function validate(values) {
 export default connect(mapStateToProps, { fetchContact, saveContact })(
   reduxForm({
     form: "UserForm",
-    enableReinitialize: true,
-    keepDirtyOnReinitialize: true
+    enableReinitialize: false,
+    keepDirtyOnReinitialize: false
   })(UserForm)
 );

@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, "public/build/"),
-    publicPath: "build/",
+    publicPath: "/new_phonebook/build/",
     filename: "[name].js"
   },
   module: {

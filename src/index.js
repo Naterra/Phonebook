@@ -9,8 +9,10 @@ import ReduxPromise from "redux-promise";
 
 // CSS/js
 import "materialize-css/dist/css/materialize.min.css";
-import "../node_modules/materialize-css/dist/js/materialize.js";
+// import "../node_modules/materialize-css/dist/js/materialize.js";
 import "./css/style.css";
+
+// window.Hammer = require('./node_modules/materialize-css/js/hammer.min.js');
 
 import App from "./components/app";
 import reducers from "./reducers";
