@@ -25,16 +25,12 @@ class RecordsList extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     this.props.fetchContacts(this.props.filter);
   }
 
   //UPDATERS
   componentWillReceiveProps(nextProps) {
-    console.log("componentWillReceiveProps");
-
     if (this.props.filter !== nextProps.filter) {
-      console.log("FILTER WAS CHANGED");
       this.props.fetchContacts(nextProps.filter);
     }
   }

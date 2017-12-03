@@ -7,8 +7,8 @@ const fields = {
     { label: "Category", name: "Category" }
   ],
   contact: [
-    { label: "Email", name: "Email", reguired: true },
-    { label: "MobileNo", name: "MobileNo", reguired: true },
+    { label: "Email", name: "Email" },
+    { label: "MobileNo", name: "MobileNo" },
     { label: "HomeNo", name: "HomeNo" },
     { label: "OfficeNo", name: "OfficeNo" },
     { label: "OtherNo", name: "OtherNo" },

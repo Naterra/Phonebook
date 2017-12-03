@@ -13,22 +13,16 @@ class createUserModal extends Component {
 
     this.state = this.default_param;
 
-    this.modalClosed = this.modalClosed.bind(this);
+    this.setToDefault = this.setToDefault.bind(this);
     this.userCreatedCallback = this.userCreatedCallback.bind(this);
   }
 
-  modalClosed() {
-    // Set to default
-    this.setState(this.default_param);
-  }
-
   setToDefault() {
-    // Set to default
+    // Set state to default
     this.setState(this.default_param);
   }
 
   userCreatedCallback(val) {
-    // console.log("userCreatedCallback");
     this.setState({ user_created: true, modal_header: "" });
   }
 
@@ -38,10 +32,9 @@ class createUserModal extends Component {
         header={this.state.modal_header}
         modalOptions={{
           complete: () => {
-            this.modalClosed();
+            this.setToDefault();
           },
           ready: (modal, trigger) => {
-            console.log("OPEN MODAL");
             this.setToDefault();
           }
         }}
