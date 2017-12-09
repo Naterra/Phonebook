@@ -8,36 +8,32 @@ import {
   set_filter_page,
   delete_contact
 } from "../actions";
-import { Link } from "react-router-dom";
 
 import Alpha from "../components/alphabetMenu";
-import Paging from "../components/paging";
-import SearchBox from "../containers/SearchBox";
 import RecordsListItem from "../components/recordsListItem";
+import Paging from "../containers/paging";
+import SearchBox from "../containers/SearchBox";
 
 class RecordsList extends Component {
   constructor(props) {
     super(props);
 
     this.onClickAlpha = this.onClickAlpha.bind(this);
-    this.pagingOnClick = this.pagingOnClick.bind(this);
     this.deleteContact = this.deleteContact.bind(this);
   }
 
   componentDidMount() {
+    //Fetch contacts from DB
     this.props.fetchContacts(this.props.filter);
   }
 
   //UPDATERS
   componentWillReceiveProps(nextProps) {
+    // Runs Every time when filter or pager is changed
+    // Re-fetch contacts when filter is changed
     if (this.props.filter !== nextProps.filter) {
       this.props.fetchContacts(nextProps.filter);
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    //do not rerender when filter.term is changed, rerender when contacts[] get update
-    return this.props.filter !== nextProps.filter ? false : true;
   }
 
   onClickAlpha(letter, e) {
@@ -46,12 +42,10 @@ class RecordsList extends Component {
     this.props.set_filter_page(1);
   }
 
-  pagingOnClick(el, e) {
-    this.props.set_filter_page(el);
-  }
-
   deleteContact(id) {
-    this.props.delete_contact(id);
+    this.props.delete_contact(id, () => {
+      this.props.fetchContacts(this.props.filter);
+    });
   }
 
   renderContacts() {
@@ -108,13 +102,7 @@ class RecordsList extends Component {
           </table>
         </div>
 
-        <Paging
-          total={this.props.contacts.total}
-          records_perPage={this.props.filter.limit}
-          currentPage={this.props.filter.page}
-          pager_offset="3"
-          pagingOnClick={this.pagingOnClick}
-        />
+        <Paging total={this.props.contacts.total} />
       </div>
     );
   }

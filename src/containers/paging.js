@@ -14,13 +14,18 @@ class Paging extends Component {
       pages: [],
       total_pages: 0
     };
+
+    this.pagingOnClick = this.pagingOnClick.bind(this);
     this.goToFirst = this.goToFirst.bind(this);
     this.goToLast = this.goToLast.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log( nextProps, 'PAGING: componentWillReceiveProps');
     this.getPager(nextProps);
+  }
+
+  pagingOnClick(el, e) {
+    this.props.set_filter_page(el);
   }
 
   goToFirst(e) {
@@ -32,12 +37,11 @@ class Paging extends Component {
   }
 
   getPager(param) {
-    //console.log(param, 'PAGING/getPager PARAM');
-    let currentPage = parseInt(param.currentPage);
+    let currentPage = parseInt(this.props.filter.page);
     let visiblePages = parseInt(param.visiblePages) || 10;
 
     // calculate total pages
-    let totalPages = Math.ceil(param.total / param.records_perPage);
+    let totalPages = Math.ceil(param.total / this.props.filter.limit);
     this.setState({ total_pages: totalPages });
 
     let page_offset = parseInt(Math.ceil(visiblePages / 2));
@@ -50,29 +54,27 @@ class Paging extends Component {
       endPage = visiblePages > totalPages ? totalPages : visiblePages;
     } else if (currentPage + page_offset >= totalPages) {
       //if close to end
-      startPage = totalPages - visiblePages < 1 ? 1 : totalPages - visiblePages; //9 -10 +1 =0
+      startPage = totalPages - visiblePages < 1 ? 1 : totalPages - visiblePages;
       endPage = totalPages;
     } else {
       startPage = currentPage - page_offset + 1;
       endPage = currentPage + page_offset;
     }
 
-    //console.warn("Total rec:"+param.total+" Pages:"+totalPages+" Current:"+currentPage +" Offset:"+ page_offset+" startPage:"+startPage+"  End:"+ endPage+" visiblePages:"+visiblePages );
-
     let pages = _.range(parseInt(startPage), parseInt(endPage) + 1);
-    // console.log(pages, 'pages');
 
     this.setState({
       pages: pages
     });
   }
+
   getList() {
     return this.state.pages.map(page => {
       return (
         <li
           key={page}
-          onClick={e => this.props.pagingOnClick(page, e)}
-          className={page == this.props.currentPage ? "active" : "waves-effect"}
+          onClick={e => this.pagingOnClick(page, e)}
+          className={page == this.props.filter.page ? "active" : "waves-effect"}
         >
           <a>{page}</a>
         </li>
@@ -81,7 +83,6 @@ class Paging extends Component {
   }
 
   render() {
-    //console.log(this.props, 'PAGING: render');
     return (
       <ul className="pagination center">
         {this.state.pages.length > 0 ? (
