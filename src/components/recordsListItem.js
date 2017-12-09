@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Modal, Button } from "react-materialize";
+import { Modal, Button, Icon, T } from "react-materialize";
 
 class recordsListItem extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class recordsListItem extends Component {
   deleteEvent(id) {
     this.props.deleteContact(id);
     // Close Modal
-    $(".modal.open").modal("close");
+    //$(".modal.open").modal("close");
   }
 
   render() {
@@ -38,16 +38,33 @@ class recordsListItem extends Component {
 
           <Modal
             header={header_text}
+            actions={
+              <div>
+                <Button
+                  flat
+                  className="modal-action modal-close "
+                  waves="light"
+                  onClick={e => this.deleteEvent(contact.Id)}
+                >
+                  Yes
+                </Button>
+
+                <Button
+                  className="modal-action modal-close "
+                  flat
+                  modal="close"
+                  waves="light"
+                >
+                  No
+                </Button>
+              </div>
+            }
             trigger={
               <Button className="red lighten-2  btn-small" waves="light">
                 <i className="material-icons ">delete</i>
               </Button>
             }
-          >
-            <Button waves="light" onClick={e => this.deleteEvent(contact.Id)}>
-              Yes
-            </Button>
-          </Modal>
+          />
         </td>
       </tr>
     );

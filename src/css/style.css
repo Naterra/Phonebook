@@ -84,3 +84,9 @@ nav .nav-wrapper .fake-input  i {
 table.striped > tbody > tr:nth-child(2n+1){
     background-color: #f6f6f6;
 }
+nav .brand-logo {
+    margin-left: 10px;
+}
+.modal h4 {
+    font-size: 22px;
+}
