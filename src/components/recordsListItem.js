@@ -29,21 +29,25 @@ class recordsListItem extends Component {
         <td>{contact.Category}</td>
         <td>{contact.Notes}</td>
         <td className="center-align">
+          <Link
+            to={`/edit_contact/${contact.Id}`}
+            className="teal lighten-2 waves-effect waves-light btn btn-small "
+          >
+            <i className="material-icons ">create</i>
+          </Link>
+
           <Modal
             header={header_text}
-            trigger={<Button waves="light">DeleteMe</Button>}
+            trigger={
+              <Button className="red lighten-2  btn-small" waves="light">
+                <i className="material-icons ">delete</i>
+              </Button>
+            }
           >
             <Button waves="light" onClick={e => this.deleteEvent(contact.Id)}>
               Yes
             </Button>
           </Modal>
-
-          <Link
-            to={`/edit_contact/${contact.Id}`}
-            className="waves-effect waves-light btn btn-small "
-          >
-            <i className="material-icons ">create</i>
-          </Link>
         </td>
       </tr>
     );

@@ -81,3 +81,6 @@ nav .nav-wrapper .fake-input  i {
 .fake-input input[type="search"]{
     height: 2rem;
 }
+table.striped > tbody > tr:nth-child(2n+1){
+    background-color: #f6f6f6;
+}
