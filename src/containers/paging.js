@@ -82,28 +82,45 @@ class Paging extends Component {
     });
   }
 
+  last_arrow() {
+    //show arrow if more than one page existing in result
+    if (this.state.pages.length > 0) {
+      let style =
+        this.props.filter.page == this.state.total_pages
+          ? "disabled"
+          : "waves-effect";
+
+      return (
+        <li className={style}>
+          <a onClick={e => this.goToLast(e)}>
+            <i className="material-icons">chevron_right</i>
+          </a>
+        </li>
+      );
+    }
+  }
+
+  first_arrow() {
+    if (this.state.pages.length > 0) {
+      let link;
+      let style = this.props.filter.page == 1 ? "disabled" : "waves-effect";
+
+      return (
+        <li className={style}>
+          <a onClick={e => this.goToFirst(e)}>
+            <i className="material-icons">chevron_left</i>
+          </a>
+        </li>
+      );
+    }
+  }
+
   render() {
     return (
       <ul className="pagination center">
-        {this.state.pages.length > 0 ? (
-          <li className="disabled">
-            <a onClick={e => this.goToFirst(e)}>
-              <i className="material-icons">chevron_left</i>
-            </a>
-          </li>
-        ) : (
-          ""
-        )}
+        {this.first_arrow()}
         {this.getList()}
-        {this.state.pages.length > 0 ? (
-          <li className="waves-effect">
-            <a onClick={e => this.goToLast(e)}>
-              <i className="material-icons">chevron_right</i>
-            </a>
-          </li>
-        ) : (
-          ""
-        )}
+        {this.last_arrow()}
       </ul>
     );
   }
