@@ -48,19 +48,11 @@ module.exports = {
     port: 3000
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-
-    //Do not generate chunks for this project
-    // new webpack.optimize.CommonsChunkPlugin({
-    //     names: ['vendor','manifest'],
-    //     //minChunks: Infinity,
-    //     //filename: 'vendor.js',
-    // }),
-
-    // generate index.html automatically for this project
+    // generate index.html automatically for the project
     new HtmlWebpackPlugin({
       template: "src/index.html"
     }),
+
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-// axios.defaults.baseURL = 'http://phonebook.app/new_phonebook/';
+
 axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
@@ -65,9 +65,6 @@ export function fetchContact(id) {
 }
 
 export function fetchContacts(filter) {
-  console.log(filter, "ACTION fetchContacts");
-  //const records_limit = 30;
-
   const config = { headers: { "Content-Type": "multipart/form-data" } };
 
   const request = axios.get(
@@ -82,8 +79,3 @@ export function fetchContacts(filter) {
     payload: request
   };
 }
-
-// export const fetchContacts = () =>async dispatch => {
-//     const res = await axios.get('/api/index.php?action=contacts');
-//     dispatch({ type:FETCH_CONTACTS, payload: res.data });
-// };
